@@ -6,17 +6,24 @@ package org.uv.dapp01practica01;
 
 /**
  *
- * @author zaireko
+ * @author yodoeaoffi06
  */
-public class Empleado {
+
+//Plain Old Java Objject
+//DTO
+//Maping --- ORM
+public class PojoEmpleado {
+    private int id;
     private String nombre;
     private String direccion;
     private String telefono;
 
-    public Empleado(String nombre, String direccion, String telefono) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
