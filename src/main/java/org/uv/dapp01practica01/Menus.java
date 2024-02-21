@@ -70,28 +70,18 @@ public class Menus {
                 "Introduzca el teléfono del empleado"));
 
         DAOEmpleado dao = new DAOEmpleado();
-        boolean rep = dao.guardar(emp);
+        dao.guardar(emp);
 
-        if (rep) {
-            JOptionPane.showMessageDialog(null, "Se ha creado un nuevo empleado!");
-        } else {
-            JOptionPane.showMessageDialog(null, MENSAJE,
-                    TIPO, JOptionPane.ERROR_MESSAGE);
-        }
+        JOptionPane.showMessageDialog(null, "Se ha creado un nuevo empleado!");
     }
 
     private static void eliminar() {
         int id = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el ID del usuario a eliminar:"));
 
         DAOEmpleado dao = new DAOEmpleado();
-        boolean rep = dao.eliminar(id);
+        dao.eliminar(id);
 
-        if (rep) {
-            JOptionPane.showMessageDialog(null, "Se ha eliminado al empleado!");
-        } else {
-            JOptionPane.showMessageDialog(null, MENSAJE,
-                    TIPO, JOptionPane.ERROR_MESSAGE);
-        }
+        JOptionPane.showMessageDialog(null, "Se ha eliminado al empleado!");
     }
 
     private static void modificar() {
@@ -120,14 +110,9 @@ public class Menus {
             nemp.setTelefono(vemp.getTelefono());
         }
 
-        boolean rep = dao.modificar(nemp, id);
+        dao.modificar(nemp, id);
 
-        if (rep) {
-            JOptionPane.showMessageDialog(null, "Se ha modificado el empleado!");
-        } else {
-            JOptionPane.showMessageDialog(null, MENSAJE,
-                    TIPO, JOptionPane.ERROR_MESSAGE);
-        }
+        JOptionPane.showMessageDialog(null, "Se ha modificado el empleado!");
     }
 
     private static void buscar() {
