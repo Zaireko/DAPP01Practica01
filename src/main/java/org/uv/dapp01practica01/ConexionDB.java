@@ -32,10 +32,11 @@ public class ConexionDB {
         }
     }
 
-    public static synchronized ConexionDB getInstance() {
+    public static ConexionDB getInstance() {
         if (instance == null) {
             instance = new ConexionDB();
         }
+        
         return instance;
     }
 

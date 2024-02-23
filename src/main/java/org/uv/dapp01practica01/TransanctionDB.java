@@ -10,7 +10,7 @@
      *
      * @author zaireko
      */
-    public abstract class TransanctionDB <T>{
+    public abstract class TransanctionDB<T> {
         protected T p;
 
         TransanctionDB(T p) {
@@ -20,7 +20,6 @@
         protected TransanctionDB() {
 
         }
-
 
         public abstract boolean execute(Connection con);
     }
