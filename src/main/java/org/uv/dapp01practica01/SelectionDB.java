@@ -17,6 +17,6 @@ public abstract class SelectionDB<T> {
     SelectionDB(T p){
         this.p = p;
     }
-    
+     
     public abstract List<T> select(Connection con);
 }

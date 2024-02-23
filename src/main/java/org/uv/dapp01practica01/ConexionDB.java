@@ -44,7 +44,7 @@ public class ConexionDB {
         return t.execute(connection);
     }
 
-    public <T> List<T> select(SelectionDB<T> sel) {
+    public <T>List<T> select(SelectionDB<T> sel) {
         return sel.select(connection);
     }
 
