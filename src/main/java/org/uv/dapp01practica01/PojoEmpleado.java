@@ -1,23 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.uv.dapp01practica01;
+
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author yodoeaoffi06
  */
 
-//Plain Old Java Objject
-//DTO
-//Maping --- ORM
-public class PojoEmpleado {
+@Entity(name = "empleado")
+public class PojoEmpleado implements Serializable{
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+    
+    @Column(name = "nombre")
     private String nombre;
+    
+    @Column(name = "direccion")
     private String direccion;
+    
+    @Column(name = "telefono")
     private String telefono;
 
+    
+    //Setters y Getters
     public int getId() {
         return id;
     }
