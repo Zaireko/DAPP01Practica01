@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.uv.dapp01practica01;
 
 import java.util.List;
@@ -69,7 +65,7 @@ public class Menus {
         emp.setTelefono(JOptionPane.showInputDialog(null,
                 "Introduzca el teléfono del empleado"));
 
-        DAOEmpleado dao = new DAOEmpleado();
+        HDAOEmpleado dao = new HDAOEmpleado();
         dao.guardar(emp);
 
         JOptionPane.showMessageDialog(null, "Se ha creado un nuevo empleado!");
@@ -78,7 +74,7 @@ public class Menus {
     private static void eliminar() {
         int id = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el ID del usuario a eliminar:"));
 
-        DAOEmpleado dao = new DAOEmpleado();
+        HDAOEmpleado dao = new HDAOEmpleado();
         dao.eliminar(id);
 
         JOptionPane.showMessageDialog(null, "Se ha eliminado al empleado!");
@@ -87,7 +83,7 @@ public class Menus {
     private static void modificar() {
         int id = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el ID del usuario a modificar:"));
 
-        DAOEmpleado dao = new DAOEmpleado();
+        HDAOEmpleado dao = new HDAOEmpleado();
         PojoEmpleado vemp = dao.buscarById(id);
 
         PojoEmpleado nemp = new PojoEmpleado();
@@ -118,7 +114,7 @@ public class Menus {
     private static void buscar() {
         int id = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el ID del usuario por buscar:"));
 
-        DAOEmpleado dao = new DAOEmpleado();
+        HDAOEmpleado dao = new HDAOEmpleado();
         PojoEmpleado emp = dao.buscarById(id);
 
         if (emp != null) {
@@ -135,7 +131,7 @@ public class Menus {
 
     private static void mostrar() {
         String cadena = "Empleados:\n";
-        DAOEmpleado dao = new DAOEmpleado();
+        HDAOEmpleado dao = new HDAOEmpleado();
         List<PojoEmpleado> emps = dao.buscarAll();
 
         if (!emps.isEmpty()) {

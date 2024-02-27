@@ -1,9 +1,9 @@
-/home/yodoeaoffi06/Escritorio/Proyectos/DAPP01Practica01/src/main/java/org/uv/dapp01practica01/ConexionDB.java
-/home/yodoeaoffi06/Escritorio/Proyectos/DAPP01Practica01/src/main/java/org/uv/dapp01practica01/DAOEmpleado.java
-/home/yodoeaoffi06/Escritorio/Proyectos/DAPP01Practica01/src/main/java/org/uv/dapp01practica01/IDAOGeneral.java
-/home/yodoeaoffi06/Escritorio/Proyectos/DAPP01Practica01/src/main/java/org/uv/dapp01practica01/SelectionDB.java
-/home/yodoeaoffi06/Escritorio/Proyectos/DAPP01Practica01/src/main/java/org/uv/dapp01practica01/PojoEmpleado.java
-/home/yodoeaoffi06/Escritorio/Proyectos/DAPP01Practica01/src/main/java/org/uv/dapp01practica01/DAPP01Practica01.java
-/home/yodoeaoffi06/Escritorio/Proyectos/DAPP01Practica01/src/main/java/org/uv/dapp01practica01/HibernateUtil.java
-/home/yodoeaoffi06/Escritorio/Proyectos/DAPP01Practica01/src/main/java/org/uv/dapp01practica01/TransanctionDB.java
-/home/yodoeaoffi06/Escritorio/Proyectos/DAPP01Practica01/src/main/java/org/uv/dapp01practica01/Menus.java
+C:\Users\user\Desktop\Archivos de Escuelas\UV\6to Semestre\Desarrollo de aplicaciones\DAPP01Practica01\src\main\java\org\uv\dapp01practica01\DAOEmpleado.java
+C:\Users\user\Desktop\Archivos de Escuelas\UV\6to Semestre\Desarrollo de aplicaciones\DAPP01Practica01\src\main\java\org\uv\dapp01practica01\HibernateUtil.java
+C:\Users\user\Desktop\Archivos de Escuelas\UV\6to Semestre\Desarrollo de aplicaciones\DAPP01Practica01\src\main\java\org\uv\dapp01practica01\ConexionDB.java
+C:\Users\user\Desktop\Archivos de Escuelas\UV\6to Semestre\Desarrollo de aplicaciones\DAPP01Practica01\src\main\java\org\uv\dapp01practica01\IDAOGeneral.java
+C:\Users\user\Desktop\Archivos de Escuelas\UV\6to Semestre\Desarrollo de aplicaciones\DAPP01Practica01\src\main\java\org\uv\dapp01practica01\TransanctionDB.java
+C:\Users\user\Desktop\Archivos de Escuelas\UV\6to Semestre\Desarrollo de aplicaciones\DAPP01Practica01\src\main\java\org\uv\dapp01practica01\SelectionDB.java
+C:\Users\user\Desktop\Archivos de Escuelas\UV\6to Semestre\Desarrollo de aplicaciones\DAPP01Practica01\src\main\java\org\uv\dapp01practica01\DAPP01Practica01.java
+C:\Users\user\Desktop\Archivos de Escuelas\UV\6to Semestre\Desarrollo de aplicaciones\DAPP01Practica01\src\main\java\org\uv\dapp01practica01\PojoEmpleado.java
+C:\Users\user\Desktop\Archivos de Escuelas\UV\6to Semestre\Desarrollo de aplicaciones\DAPP01Practica01\src\main\java\org\uv\dapp01practica01\Menus.java
