@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
  *
  * @author yodoeaoffi06
  */
-public class HDAOEmpleado implements IDAOGeneral<PojoEmpleado, Integer> {
+public class HDAOEmpleado implements IDAOGeneral<PojoEmpleado, Long> {
 
     @Override
     public PojoEmpleado guardar(PojoEmpleado pojo) {
@@ -24,7 +24,7 @@ public class HDAOEmpleado implements IDAOGeneral<PojoEmpleado, Integer> {
     }
 
     @Override
-    public PojoEmpleado modificar(PojoEmpleado pojo, Integer clave) {
+    public PojoEmpleado modificar(PojoEmpleado pojo, Long clave) {
         SessionFactory sf = HibernateUtil.getSessionFactory();
 
         Session session = sf.getCurrentSession();
@@ -50,7 +50,7 @@ public class HDAOEmpleado implements IDAOGeneral<PojoEmpleado, Integer> {
     }
 
     @Override
-    public boolean eliminar(Integer clave) {
+    public boolean eliminar(Long clave) {
         SessionFactory sf = HibernateUtil.getSessionFactory();
 
         Session session = sf.getCurrentSession();
@@ -71,7 +71,7 @@ public class HDAOEmpleado implements IDAOGeneral<PojoEmpleado, Integer> {
     }
 
     @Override
-    public PojoEmpleado buscarById(Integer id) {
+    public PojoEmpleado buscarById(Long id) {
         SessionFactory sf = HibernateUtil.getSessionFactory();
 
         Session session = sf.getCurrentSession();
@@ -91,7 +91,7 @@ public class HDAOEmpleado implements IDAOGeneral<PojoEmpleado, Integer> {
         Session session = sf.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        List<PojoEmpleado> empleados = session.createQuery("FROM empleado", PojoEmpleado.class).getResultList();
+        List<PojoEmpleado> empleados = session.createQuery("FROM empleadosuv", PojoEmpleado.class).getResultList();
 
         transaction.commit();
 

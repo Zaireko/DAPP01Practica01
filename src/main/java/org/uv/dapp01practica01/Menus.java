@@ -72,7 +72,7 @@ public class Menus {
     }
 
     private static void eliminar() {
-        int id = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el ID del usuario a eliminar:"));
+        long id = Long.parseLong(JOptionPane.showInputDialog("Introduzca el ID del usuario a eliminar:"));
 
         HDAOEmpleado dao = new HDAOEmpleado();
         dao.eliminar(id);
@@ -81,7 +81,7 @@ public class Menus {
     }
 
     private static void modificar() {
-        int id = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el ID del usuario a modificar:"));
+        long id = Long.parseLong(JOptionPane.showInputDialog("Introduzca el ID del usuario a modificar:"));
 
         HDAOEmpleado dao = new HDAOEmpleado();
         PojoEmpleado vemp = dao.buscarById(id);
@@ -112,7 +112,7 @@ public class Menus {
     }
 
     private static void buscar() {
-        int id = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el ID del usuario por buscar:"));
+        long id = Long.parseLong(JOptionPane.showInputDialog("Introduzca el ID del usuario por buscar:"));
 
         HDAOEmpleado dao = new HDAOEmpleado();
         PojoEmpleado emp = dao.buscarById(id);
