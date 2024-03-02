@@ -1,5 +1,6 @@
 package org.uv.dapp01practica01;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -27,7 +28,8 @@ public class Menus {
                     + "3.- Modificar un empleado.\n"
                     + "4.- Buscar un empleado.\n"
                     + "5.- Mostrar todos los empleados.\n"
-                    + "6.- Salir."));
+                    + "6.- Generar una venta.\n"
+                    + "7.- Salir."));
 
             switch (op) {
                 case 1:
@@ -46,6 +48,9 @@ public class Menus {
                     mostrar();
                     break;
                 case 6:
+                    generarVenta();
+                    break;
+                case 7:
                     JOptionPane.showMessageDialog(null, "Hasta luego!");
                     break;
                 default:
@@ -53,7 +58,7 @@ public class Menus {
                             TIPO, JOptionPane.ERROR_MESSAGE);
                     break;
             }
-        } while (op != 6);
+        } while (op != 7);
     }
 
     private static void agregar() {
@@ -148,5 +153,42 @@ public class Menus {
             JOptionPane.showMessageDialog(null, MENSAJE,
                     TIPO, JOptionPane.ERROR_MESSAGE);
         }
+    }
+    private static void generarVenta() {
+        int numProductos = Integer.parseInt(JOptionPane.showInputDialog(null,
+                "Ingrese el número de productos en la venta:"));
+
+        // Crear una nueva venta
+        Venta venta = new Venta();
+        venta.setCliente(JOptionPane.showInputDialog(null,
+                "Ingrese el nombre del cliente:"));
+        venta.setFecha(new Date(System.currentTimeMillis())); // Fecha actual
+        venta.setTotal(0); // Total inicializado en 0
+
+        // Guardar la venta en la base de datos
+        DAOVenta daoVenta = new DAOVenta();
+        venta = daoVenta.guardar(venta);
+
+        // Ingresar los detalles de la venta
+        for (int i = 0; i < numProductos; i++) {
+            DetalleVenta detalleVenta = new DetalleVenta();
+            detalleVenta.setIdVenta(venta.getId());
+            detalleVenta.setProducto(JOptionPane.showInputDialog(null,
+                    "Ingrese el nombre del producto " + (i + 1) + ":"));
+            detalleVenta.setCantidad(Double.parseDouble(JOptionPane.showInputDialog(null,
+                    "Ingrese la cantidad del producto " + (i + 1) + ":")));
+            detalleVenta.setPrecio(Double.parseDouble(JOptionPane.showInputDialog(null,
+                    "Ingrese el precio del producto " + (i + 1) + ":")));
+
+            // Guardar el detalle de la venta en la base de datos
+            DAODetalleVenta daoDetalleVenta = new DAODetalleVenta();
+            daoDetalleVenta.guardar(detalleVenta);
+
+            // Actualizar el total de la venta
+            venta.setTotal(venta.getTotal() + detalleVenta.getCantidad() * detalleVenta.getPrecio());
+            daoVenta.modificar(venta, venta.getId());
+        }
+
+        JOptionPane.showMessageDialog(null, "Venta generada exitosamente!");
     }
 }
