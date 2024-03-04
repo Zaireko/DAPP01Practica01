@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -15,33 +17,42 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "detalleVenta")
-public class DetalleVenta implements Serializable{
-    
+@Table(name = "detalleventa")
+public class DetalleVenta implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalleVenta_idLinea_seq")
-    @SequenceGenerator(name = "detalleVenta_idLinea_seq", sequenceName = "detalleVenta_idLinea_seq", allocationSize = 1, initialValue = 1)
-    @Column(name = "idLinea")
-    private long idLinea;
-    
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalleventa_idlinea_seq")
+    @SequenceGenerator(name = "detalleventa_idlinea_seq", sequenceName = "detalleventa_idlinea_seq", allocationSize = 1, initialValue = 1)
+    @Column(name = "idlinea")
+    private long id;
+
     @Column
     private String producto;
-    
+
     @Column
     private double cantidad;
-    
+
     @Column
     private double precio;
-    
-    @Column
-    private long idVenta;
 
-    public long getIdLinea() {
-        return idLinea;
+    @ManyToOne
+    @JoinColumn(name = "idventa")
+    private Venta venta;
+    
+    public Venta getVenta(){
+        return venta;
     }
 
-    public void setIdLinea(long idLinea) {
-        this.idLinea = idLinea;
+    public void setVenta(Venta venta){
+        this.venta = venta;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getProducto() {
@@ -67,12 +78,5 @@ public class DetalleVenta implements Serializable{
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-
-    public long getIdVenta() {
-        return idVenta;
-    }
-
-    public void setIdVenta(long idVenta) {
-        this.idVenta = idVenta;
-    }
 }
+

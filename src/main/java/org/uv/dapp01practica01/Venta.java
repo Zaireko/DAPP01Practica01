@@ -2,11 +2,16 @@ package org.uv.dapp01practica01;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -20,9 +25,9 @@ import javax.persistence.Table;
 public class Venta implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venta_idVenta_seq")
-    @SequenceGenerator(name = "venta_idVenta_seq", sequenceName = "venta_idVenta_seq", allocationSize = 1, initialValue = 1)
-    @Column(name = "idVenta")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venta_idventa_seq")
+    @SequenceGenerator(name = "venta_idventa_seq", sequenceName = "venta_idventa_seq", allocationSize = 1, initialValue = 1)
+    @Column(name = "idventa")
     private long id;
 
     @Column
@@ -33,6 +38,13 @@ public class Venta implements Serializable {
 
     @Column
     private double total;
+    
+    @OneToMany(mappedBy = "venta", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DetalleVenta> detalleVentas;
+    
+    public Venta() {
+        detalleVentas = new ArrayList<>();
+    }
 
     public long getId() {
         return id;
@@ -66,4 +78,11 @@ public class Venta implements Serializable {
         this.total = total;
     }
 
+    public List<DetalleVenta> getDetalleVentas() {
+        return detalleVentas;
+    }
+
+    public void setDetalleVentas(List<DetalleVenta> detalleVentas) {
+        this.detalleVentas = detalleVentas;
+    }
 }

@@ -4,15 +4,12 @@
  */
 package org.uv.dapp01practica01;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
 /**
  *
  * @author zaireko
@@ -20,137 +17,92 @@ import java.util.logging.Logger;
 public class DAOVenta implements IDAOGeneral<Venta, Long> {
 
     @Override
-    public Venta guardar(Venta venta) {
-        TransanctionDB<Venta> t = new TransanctionDB<Venta>(venta) {
-            @Override
-            public boolean execute(Connection con) {
-                try {
-                    String sql = "INSERT INTO venta (cliente, fecha, total) VALUES (?, ?, ?)";
-                    try (PreparedStatement pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                        pstm.setString(1, venta.getCliente());
-                        pstm.setDate(2, venta.getFecha());
-                        pstm.setDouble(3, venta.getTotal());
-                        pstm.executeUpdate();
-
-                        ResultSet rs = pstm.getGeneratedKeys();
-                        if (rs.next()) {
-                            venta.setId(rs.getLong(1));
-                        }
-                    }
-                    return true;
-                } catch (SQLException ex) {
-                    Logger.getLogger(DAOVenta.class.getName()).log(Level.SEVERE, null, ex);
-                    return false;
-                }
+    public Venta guardar(Venta pojo) {
+        try (SessionFactory sf = HibernateUtil.getSessionFactory();
+             Session session = sf.getCurrentSession()) {
+            Transaction transaction = session.beginTransaction();
+            
+            session.save(pojo);
+            for (DetalleVenta det : pojo.getDetalleVentas()) {
+                session.save(det);
             }
-        };
-        ConexionDB conexion = ConexionDB.getInstance();
-        conexion.execute(t);
-        return venta;
+            
+            transaction.commit();
+            return pojo;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public Venta modificar(Venta venta, Long clave) {
-        TransanctionDB<Venta> t = new TransanctionDB<Venta>() {
-            @Override
-            public boolean execute(Connection con) {
-                try {
-                    String sql = "UPDATE venta SET cliente = ?, fecha = ?, total = ? WHERE idVenta = ?";
-                    try (PreparedStatement pstm = con.prepareStatement(sql)) {
-                        pstm.setString(1, venta.getCliente());
-                        pstm.setDate(2, venta.getFecha());
-                        pstm.setDouble(3, venta.getTotal());
-                        pstm.setLong(4, venta.getId());
-                        pstm.executeUpdate();
-                    }
-                    return true;
-                } catch (SQLException ex) {
-                    Logger.getLogger(DAOVenta.class.getName()).log(Level.SEVERE, null, ex);
-                    return false;
-                }
-            }
-        };
-        ConexionDB conexion = ConexionDB.getInstance();
-        conexion.execute(t);
-        return venta;
+    public Venta modificar(Venta pojo, Long clave) {
+        try (SessionFactory sf = HibernateUtil.getSessionFactory();
+             Session session = sf.getCurrentSession()) {
+            Transaction transaction = session.beginTransaction();
+            
+            session.update(pojo);
+            transaction.commit();
+            
+            return pojo;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public boolean eliminar(Long clave) {
-        TransanctionDB t = new TransanctionDB() {
-            @Override
-            public boolean execute(Connection con) {
-                try {
-                    try (PreparedStatement pstm = con.prepareStatement("DELETE FROM venta WHERE idVenta = ?")) {
-                        pstm.setLong(1, clave);
-                        pstm.executeUpdate();
-                    }
-                    return true;
-                } catch (SQLException ex) {
-                    Logger.getLogger(DAOVenta.class.getName()).log(Level.SEVERE, null, ex);
-                    return false;
-                }
+        try (SessionFactory sf = HibernateUtil.getSessionFactory();
+             Session session = sf.getCurrentSession()) {
+            Transaction transaction = session.beginTransaction();
+            
+            Venta venta = session.get(Venta.class, clave);
+            if (venta != null) {
+                session.delete(venta);
+                transaction.commit();
+                return true;
             }
-        };
-        ConexionDB conexion = ConexionDB.getInstance();
-        return conexion.execute(t);
+            
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public Venta buscarById(Long id) {
-        SelectionDB<Venta> s = new SelectionDB<Venta>(new Venta()) {
-            @Override
-            public List<Venta> select(Connection con) {
-                List<Venta> ventas = new ArrayList<>();
-                try {
-                    try (PreparedStatement pstm = con.prepareStatement("SELECT * FROM venta WHERE idVenta = ?")) {
-                        pstm.setLong(1, id);
-                        try (ResultSet rs = pstm.executeQuery()) {
-                            if (rs.next()) {
-                                Venta venta = new Venta();
-                                venta.setId(rs.getLong("idVenta"));
-                                venta.setCliente(rs.getString("cliente"));
-                                venta.setFecha(rs.getDate("fecha"));
-                                venta.setTotal(rs.getDouble("total"));
-                                ventas.add(venta);
-                            }
-                        }
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(DAOVenta.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                return ventas;
-            }
-        };
-        ConexionDB conexion = ConexionDB.getInstance();
-        List<Venta> ventas = conexion.select(s);
-        return ventas.isEmpty() ? null : ventas.get(0);
+        try (SessionFactory sf = HibernateUtil.getSessionFactory();
+             Session session = sf.getCurrentSession()) {
+            Transaction transaction = session.beginTransaction();
+            
+            Venta venta = session.get(Venta.class, id);
+            
+            transaction.commit();
+            
+            return venta;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<Venta> buscarAll() {
-        SelectionDB<Venta> s = new SelectionDB<Venta>(new Venta()) {
-            @Override
-            public List<Venta> select(Connection con) {
-                List<Venta> ventas = new ArrayList<>();
-                try {
-                    try (Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery("SELECT * FROM venta")) {
-                        while (rs.next()) {
-                            Venta venta = new Venta();
-                            venta.setId(rs.getLong("idVenta"));
-                            venta.setCliente(rs.getString("cliente"));
-                            venta.setFecha(rs.getDate("fecha"));
-                            venta.setTotal(rs.getDouble("total"));
-                            ventas.add(venta);
-                        }
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(DAOVenta.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                return ventas;
-            }
-        };
-        ConexionDB conexion = ConexionDB.getInstance();
-        return conexion.select(s);
+        try (SessionFactory sf = HibernateUtil.getSessionFactory();
+             Session session = sf.getCurrentSession()) {
+            Transaction transaction = session.beginTransaction();
+            
+            Query<Venta> query = session.createQuery("FROM Venta", Venta.class);
+            List<Venta> ventas = query.getResultList();
+            
+            transaction.commit();
+            
+            return ventas;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
